@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+
+  // ── Human-in-the-loop: attention ─────────────────────────────────
+  // default_agent=plan plus ask-by-default bash/webfetch means the
+  // agent blocks on approval constantly. Without this nothing signals
+  // that it stopped and is waiting.
+  "attention": {
+    "notifications": true,
+    "sound": true,
+    "volume": 0.4
+  }
+}
