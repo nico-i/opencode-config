@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "github-copilot/claude-opus-5.5",
   "compaction": {
     "auto": true,
     "buffer": 12000
@@ -9,6 +10,7 @@
   "formatter": true,
   "default_agent": "plan",
   "experimental": {
+    "todo": true,
     "policies": [
       {
         "effect": "deny",
@@ -22,32 +24,27 @@
       },
       {
         "effect": "deny",
-        "action": "permission",
+        "action": "tool.use",
         "resource": "shell:sudo*"
       },
       {
         "effect": "deny",
-        "action": "permission",
-        "resource": "shell:curl*"
-      },
-      {
-        "effect": "deny",
-        "action": "permission",
+        "action": "tool.use",
         "resource": "shell:wget*"
       },
       {
         "effect": "deny",
-        "action": "permission",
+        "action": "tool.use",
         "resource": "shell:chmod*"
       },
       {
         "effect": "deny",
-        "action": "permission",
+        "action": "tool.use",
         "resource": "shell:chown*"
       },
       {
         "effect": "deny",
-        "action": "permission",
+        "action": "tool.use",
         "resource": "edit:**/*.env*"
       }
     ]
@@ -57,6 +54,11 @@
       "action": "shell",
       "resource": "*",
       "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "curl -fsS http://127.0.0.1:8787/stats",
+      "effect": "allow"
     },
     {
       "action": "shell",
@@ -76,11 +78,6 @@
     {
       "action": "shell",
       "resource": "PROJECTATLAS_NO_TELEMETRY=1 projectatlas *",
-      "effect": "allow"
-    },
-    {
-      "action": "shell",
-      "resource": "curl -fsS http://127.0.0.1:8787/stats",
       "effect": "allow"
     },
     {
@@ -205,7 +202,7 @@
     },
     {
       "action": "shell",
-      "resource": "git remote*",
+      "resource": "git remote *",
       "effect": "allow"
     },
     {
@@ -395,13 +392,18 @@
     },
     {
       "action": "shell",
+      "resource": "npm view *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
       "resource": "python3 *",
-      "effect": "deny"
+      "effect": "ask"
     },
     {
       "action": "shell",
       "resource": "python *",
-      "effect": "deny"
+      "effect": "ask"
     },
     {
       "action": "shell",
@@ -519,6 +521,11 @@
       "effect": "ask"
     },
     {
+      "action": "webfetch",
+      "resource": "http://127.0.0.1:8787/stats",
+      "effect": "allow"
+    },
+    {
       "action": "external_directory",
       "resource": "*",
       "effect": "ask"
@@ -527,12 +534,12 @@
   "agents": {
     "build": {
       "mode": "primary",
-      "model": "github-copilot/gpt-6.1-sol",
+      "model": "github-copilot/claude-opus-5.5",
       "variant": "low"
     },
     "plan": {
       "mode": "primary",
-      "model": "github-copilot/gpt-6.1-sol",
+      "model": "github-copilot/claude-opus-5.5",
       "variant": "low"
     },
     "title": {

@@ -45,11 +45,11 @@ Use this priority order when principles conflict:
 
 ### Headroom and ProjectAtlas
 
-* Check Headroom live traffic with `curl -fsS http://127.0.0.1:8787/stats | jq '{requests: .requests, agents: .agent_usage.agents, latest: (.recent_requests | if type == "array" then .[0] else . end)}'` (use the configured port). Verify a fresh successful OpenCode request matching the active model/provider; if unclear, compare after a normal tool round trip. Shell-variable warnings and historical savings do not establish routing. Report attribution limits; do not infer exact-session routing from shared traffic.
-* Before repository exploration, check `projectatlas --format json runtime-info` (or MCP equivalent), verify the exact repository/worktree binding, and run a bounded query. Initialize missing state with `projectatlas init`, preserving existing host configs; keep `.projectatlas/` Git-ignored. CLI use needs no persistent server; MCP use requires a responding server.
-* Prefer Atlas over glob, grep, directory walks, and broad reads: start with `atlas next <task>` or `atlas_session_brief`, follow returned selectors, then read the smallest exact slice. Use scoped filesystem fallbacks only when Atlas cannot answer or current-source verification requires them.
-* Keep the index fresh via a verified watcher or `projectatlas watch --once` after edits/when stale. Continuously improve missing or demonstrably incorrect purposes for paths used, folders first, through `projectatlas purpose set` or MCP purpose APIs. Inspect before curating; preserve valid reviewed intent and never edit SQLite directly. Keep maintenance task-local.
-* Recheck after project changes, failures, or lost context—not every lookup. If either tool is unavailable, unhealthy, or its required usability cannot be verified, stop task work immediately: explain the blocker and state that the tools must be fixed and reverified before continuing. Do not bypass this gate with fallback tools; scoped filesystem fallbacks above apply only to coverage gaps in a healthy Atlas. Follow permission boundaries during repair; no automatic installs, shared-service restarts, routing changes, or index resets. For read-only tasks, disable Atlas telemetry (`PROJECTATLAS_NO_TELEMETRY=1`) and avoid initialization, refresh, or curation without write authorization.
+* Before continuing, check Headroom with `webfetch({"url":"http://127.0.0.1:8787/stats","format":"text"})` (use the configured port).
+* In the current repository, run `projectatlas --format json runtime-info`, `projectatlas --format json root`, and `projectatlas --format json next "<current task>"`. If ProjectAtlas is not initialized for this repository, run `projectatlas init`, then repeat the checks. A missing executable or failed initialization is a blocker.
+* Ensure the repository's `.gitignore` contains `.projectatlas/` so ProjectAtlas state stays out of Git.
+* Use ProjectAtlas for repository exploration and code lookup while working. Read source files as needed to verify results.
+* If either tool is not working, stop and report the blocker. Recheck after relevant failures or repository changes, not before every lookup.
 
 1. Establish the requested outcome and constraints.
 2. Inspect relevant context.
