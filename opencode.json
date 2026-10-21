@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "github-copilot/claude-opus-5.5",
+  "model": "github-copilot/claude-sonnet-5.5",
   "compaction": {
     "auto": true,
     "buffer": 12000
@@ -534,12 +534,12 @@
   "agents": {
     "build": {
       "mode": "primary",
-      "model": "github-copilot/claude-opus-5.5",
+      "model": "github-copilot/claude-sonnet-5.5",
       "variant": "low"
     },
     "plan": {
       "mode": "primary",
-      "model": "github-copilot/claude-opus-5.5",
+      "model": "github-copilot/claude-sonnet-5.5",
       "variant": "low"
     },
     "title": {
